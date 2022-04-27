@@ -10,12 +10,11 @@ from sklearn.metrics import accuracy_score
 
 # Constants
 TEST_DATA_PERCENTAGE = 20  # Value in percentage %
-USELESS_COLUMNS = ["id", "wind_speed", "atmo_opacity", "terrestrial_date"]
-ATTRIBUTE_COLUMNS = ["sol", "ls", "month"]
+USELESS_COLUMNS = ["id", "wind_speed", "atmo_opacity"]
+ATTRIBUTE_COLUMNS = ["terrestrial_date", "sol", "ls", "month"]
 GOAL_COLUMNS = ["min_temp", "max_temp", "pressure"]
 MODELS_DICTIONARY = {
     "Logistic regression model": LogisticRegression(max_iter=math.inf)
-    "Ridge": Ridge()
 }
 
 # Variables
@@ -32,7 +31,9 @@ filteredData["month"] = filteredData.month.map(months_mapping)
 X = filteredData.drop(columns=GOAL_COLUMNS)
 Y = filteredData.drop(columns=ATTRIBUTE_COLUMNS)
 
-X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=TEST_DATA_PERCENTAGE / 100)
+print(X.shape, Y.shape)
+
+#X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=TEST_DATA_PERCENTAGE / 100)
 
 
 def testing_model(model):
@@ -41,6 +42,6 @@ def testing_model(model):
     return accuracy_score(Y_test, predictions)
 
 
-for key, model_instance in MODELS_DICTIONARY.items():
-    testing_model(model_instance)
+#for key, model_instance in MODELS_DICTIONARY.items():
+    #testing_model(model_instance)
 
