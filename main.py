@@ -1,5 +1,4 @@
 # Imports
-import math
 import pandas as pd
 from numpy import absolute
 from numpy import mean
@@ -20,7 +19,8 @@ USELESS_COLUMNS = ["id", "wind_speed", "atmo_opacity"]
 ATTRIBUTE_COLUMNS = ["sol", "ls", "month", "terrestrial_month", "terrestrial_year", "terrestrial_quarter"]
 GOAL_COLUMNS = ["min_temp", "max_temp", "pressure"]
 MODELS_DICTIONARY = {
-    "Logistic regression model": KNeighborsRegressor()
+    "KNeighbors Regressor ": KNeighborsRegressor(),
+    "Decision Tree Regressor": DecisionTreeRegressor()
 }
 
 # Variables
@@ -51,12 +51,17 @@ X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=TEST_DATA_PE
 # Evaluation procedure
 cv = RepeatedKFold(n_splits=10, n_repeats=3, random_state=1)
 
-model = KNeighborsRegressor()
-model.fit(X, Y)
-predictions = model.predict(X_test)
 
-n_scores = cross_val_score(model, X, Y, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
-n_scores = absolute(n_scores)
+def test_model(name, model_object):
+    model_object.fit(X, Y)
+    predictions = model_object.predict(X_test)
+    n_scores = cross_val_score(model_object, X, Y, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
+    n_scores = absolute(n_scores)
 
-# summarize performance
-print('MAE: %.3f (%.3f)' % (mean(n_scores), std(n_scores)))
+    # summarize performance
+    print("\nUsed algorithm: " + name)
+    print("MAE: %.3f (%.3f)" % (mean(n_scores), std(n_scores)))
+
+
+for model_name, model in MODELS_DICTIONARY.items():
+    test_model(model_name, model)
