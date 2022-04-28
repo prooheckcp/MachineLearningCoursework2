@@ -8,6 +8,8 @@ from numpy import std
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.neural_network import MLPRegressor
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.linear_model import Ridge
 
 from sklearn.model_selection import train_test_split
 
@@ -22,6 +24,8 @@ GOAL_COLUMNS = ["min_temp", "max_temp", "pressure"]
 MODELS_DICTIONARY = {
     "KNeighbors Regressor ": KNeighborsRegressor(),
     "Decision Tree Regressor": DecisionTreeRegressor(),
+    "Random Forest Regressor": RandomForestRegressor(),
+    "Ridge": Ridge(),
     "Neural Networks Regressor": MLPRegressor(random_state=1, max_iter=5000)
 }
 
