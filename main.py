@@ -7,6 +7,7 @@ from numpy import std
 # models
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.tree import DecisionTreeRegressor
+from sklearn.neural_network import MLPRegressor
 
 from sklearn.model_selection import train_test_split
 
@@ -20,7 +21,8 @@ ATTRIBUTE_COLUMNS = ["sol", "ls", "month", "terrestrial_month", "terrestrial_yea
 GOAL_COLUMNS = ["min_temp", "max_temp", "pressure"]
 MODELS_DICTIONARY = {
     "KNeighbors Regressor ": KNeighborsRegressor(),
-    "Decision Tree Regressor": DecisionTreeRegressor()
+    "Decision Tree Regressor": DecisionTreeRegressor(),
+    "Neural Networks Regressor": MLPRegressor(random_state=1, max_iter=5000)
 }
 
 # Variables
